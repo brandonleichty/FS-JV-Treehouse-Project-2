@@ -3,7 +3,7 @@
 //---GLOBAL VARIABLES---//
 
 // assings the number of students to numberOfStudents variable
-var numberOfStudents = $(".student-item").length;
+var numberOfStudents = $(".student-item.cf").length;
 
 // append student search field to header
 $(".page-header").append('<div class="student-search"><input placeholder="Search for students..."><button>Search</button></div>');
@@ -20,3 +20,13 @@ for(i = 0; i < numberOfStudents; i += 10){
   $(".pagination").append('<li><a href="#">' + pageNum + '</a></li>');
   pageNum += 1;
 }
+
+// set the first page/link to active
+$(".pagination a").first().addClass("active");
+
+$(".pagination a").click(function(){
+    $("a").removeClass("active");
+    $(this).addClass("active");
+    $(".student-item").hide();
+    $(".student-item.cf:lt(9)").show(); //figure out a way to show ten items at a time based upon button pressed
+})
