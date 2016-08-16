@@ -34,8 +34,29 @@ $(".pagination a").click(function(){
       startSlice = currentPage - 1;
       endSlice = currentPage + 9;
     }
-    console.log("startSlice is equal to: " + startSlice);
-    console.log("endSlice is equal to: " + endSlice);
+    //console.log("startSlice is equal to: " + startSlice);
+    //console.log("endSlice is equal to: " + endSlice);
     $(".student-item").hide();
     $(".student-item.cf").slice(startSlice,endSlice).show(); //figure out a way to show ten items at a time based upon button pressed
+})
+
+
+$(".student-search input").keyup(function(){
+    var $search = $(".student-search input").val().toLowerCase();
+    //console.log("This worked");
+    //console.log($search);
+
+    var $studentName = $(".student-item h3").text().toLowerCase();
+
+        $(".student-item h3").each(function(){
+
+            if ($(this).text().search(new RegExp($search, "i")) < 0) {
+
+                $(this).closest("li").fadeOut();
+
+            } else {
+              $(this).show();
+              $(this).closest("li").fadeIn();
+              }
+  })
 })
