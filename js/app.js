@@ -3,7 +3,7 @@
 //---GLOBAL VARIABLES---//
 
 // assings the number of students to numberOfStudents variable
-var numberOfStudents = $(".student-item:visible").length;
+var numberOfStudents = $(".student-item.cf").length;
 
 // append student search field to header
 $(".page-header").append('<div class="student-search"><input placeholder="Search for students..."><button>Search</button></div>');
@@ -13,9 +13,10 @@ $(".student-item.cf:nth-of-type(n+11)").hide();
 
 
 // append pagination class and unordered list to end of body
-var paginationVar = $("body").append('<div class="pagination"><ul></ul></div>');
+$("body").append('<div class="pagination"><ul></ul></div>');
 
 function paginateFunction(){
+
   var pageNum = 1;
 
   for(i = 10; i < numberOfStudents; i += 10){
@@ -52,8 +53,6 @@ $(".pagination a").click(function(){
 
 $(".student-search input").keyup(function(){
     var $search = $(".student-search input").val().toLowerCase();
-    //console.log("This worked");
-    //console.log($search);
 
     var $studentName = $(".student-item h3").text().toLowerCase();
 
@@ -61,16 +60,17 @@ $(".student-search input").keyup(function(){
 
             if ($(this).text().search(new RegExp($search, "i")) < 0) {
 
-                $(this).closest(".student-item").hide(); //move up the DOM tree from h3 to .student-item class
-
+                $(this).closest(".student-item").removeClass("cf");
+                $(this).closest(".student-item").hide() //move up the DOM tree from h3 to .student-item class
             } else {
-              $(this).closest(".student-item").fadeIn(); //move up the DOM tree from h3 to .student-item class
-
+              $(this).closest(".student-item").addClass("cf");
+              $(this).closest(".student-item").show(); //move up the DOM tree from h3 to .student-item class
               }
   })
 
-  numberOfStudents = $(".student-item:visible").length;
+  numberOfStudents = $(".student-item.cf").length;
   console.log("The number of displible students are :" + numberOfStudents);
   paginateFunction();
+  $(".student-item.cf:nth-of-type(n+11)").hide();
 
 })
