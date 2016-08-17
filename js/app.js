@@ -3,7 +3,7 @@
 //---GLOBAL VARIABLES---//
 
 // assings the number of students to numberOfStudents variable
-var numberOfStudents = $(".student-item.cf").length;
+var numberOfStudents = $(".student-item:visible").length;
 
 // append student search field to header
 $(".page-header").append('<div class="student-search"><input placeholder="Search for students..."><button>Search</button></div>');
@@ -13,13 +13,22 @@ $(".student-item.cf:nth-of-type(n+11)").hide();
 
 
 // append pagination class and unordered list to end of body
-$("body").append('<div class="pagination"><ul></ul></div>');
+var paginationVar = $("body").append('<div class="pagination"><ul></ul></div>');
 
-var pageNum = 1;
-for(i = 10; i < numberOfStudents; i += 10){
-  $(".pagination").append('<li><a href="#">' + pageNum + '</a></li>');
+function paginateFunction(){
+  var pageNum = 1;
+
+  for(i = 10; i < numberOfStudents; i += 10){
+  $(".pagination").append('<li><a href="#" class="pageNumClass">' + pageNum + '</a></li>');
   pageNum += 1;
 }
+console.log("PAGINATION FUNCTION run");
+console.log("PageNum: " + pageNum);
+}
+
+paginateFunction();
+
+
 var currentPage = 1;
 // set the first page/link to active
 $(".pagination a").first().addClass("active");
@@ -52,11 +61,16 @@ $(".student-search input").keyup(function(){
 
             if ($(this).text().search(new RegExp($search, "i")) < 0) {
 
-                $(this).closest("li").fadeOut();
+                $(this).closest(".student-item").hide(); //move up the DOM tree from h3 to .student-item class
 
             } else {
-              $(this).show();
-              $(this).closest("li").fadeIn();
+              $(this).closest(".student-item").fadeIn(); //move up the DOM tree from h3 to .student-item class
+
               }
   })
+
+  numberOfStudents = $(".student-item:visible").length;
+  console.log("The number of displible students are :" + numberOfStudents);
+  paginateFunction();
+
 })
