@@ -118,3 +118,13 @@ body{
       background-color: #4ba6c3;
       color: #fff;
     }
+
+.page-header .noStudent{
+    float: right;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 22px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: red;
+  }

@@ -8,6 +8,9 @@ var numberOfStudents = $(".student-item.cf").length;
 // append student search field to header
 $(".page-header").append('<div class="student-search"><input placeholder="Search for students..."><button>Search</button></div>');
 
+$(".page-header").append('<div class="noStudent"><p>No students found</p></div>');
+$(".noStudent").hide();
+
 // append pagination class and unordered list to end of body
 $("body").append('<div class="pagination"><ul></ul></div>');
 
@@ -69,15 +72,21 @@ $(".student-search input").keyup(function(){
 
             if ($(this).text().search(new RegExp($search, "i")) < 0) {
 
-                $(this).closest(".student-item").removeClass("cf");
-                $(this).closest(".student-item").hide() //move up the DOM tree from h3 to .student-item class
+                $(this).closest(".student-item").removeClass("cf").hide();
+                //$(this).closest(".student-item").hide() //move up the DOM tree from h3 to .student-item class
             } else {
-              $(this).closest(".student-item").addClass("cf");
-              $(this).closest(".student-item").show(); //move up the DOM tree from h3 to .student-item class
+              $(this).closest(".student-item").addClass("cf").show();
+              //$(this).closest(".student-item").show(); //move up the DOM tree from h3 to .student-item class
               }
   })
 
   numberOfStudents = $(".student-item.cf").length;
+
+  if(numberOfStudents === 0){
+    $(".noStudent").show();
+  } else {
+    $(".noStudent").hide();
+  }
   console.log("The number of displible students are :" + numberOfStudents);
   paginateFunction();
 })
