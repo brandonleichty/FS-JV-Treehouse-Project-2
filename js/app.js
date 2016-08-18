@@ -65,7 +65,7 @@ $(".student-search input").keyup(function(){
 
     var $studentName = $(".student-item h3").text().toLowerCase();
 
-        $(".student-item h3").each(function(){
+        $(".student-item h3, .student-item .email").each(function(){
 
             if ($(this).text().search(new RegExp($search, "i")) < 0) {
 
