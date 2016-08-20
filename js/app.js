@@ -24,6 +24,8 @@ paginateFunction();
 //---FUNCTIONS---//
 
 function paginateFunction(){
+
+
     $(".student-item.cf:gt(9)").hide(); //shows only ten students
 
     //clear pagination
@@ -34,10 +36,12 @@ function paginateFunction(){
       var pageNum = 1; //resets pageNum to 1 before entering loop
 
       //adds pagination based upon number of students to show
-      for(i = 10; i <= Math.ceil(numberOfStudents); i += 10){
+      if (numberOfStudents > 10) {
+      for(i = 10; i <= (Math.ceil(numberOfStudents / 10)) * 10; i += 10){
             $(".pagination ul").append('<li><a href="#">' + pageNum + '</a></li>');
             pageNum += 1;
         }
+      }
       //sets page 1 to the active page
      $(".pagination a").first().addClass("active");
 }
@@ -49,13 +53,13 @@ function pageClickFunction() {
     $(this).addClass("active");
 
     var currentPage = parseInt($(this).text()); //gets the current page and converts it to an integer
-    var startSlice = currentPage * 10;
-    var endSlice = (currentPage) * 10 + 10;
+    var startSlice = (currentPage * 10) - 10;
+    var endSlice = (currentPage * 10);
 
-    if(currentPage === 1){
-        startSlice = currentPage - 1;
-        endSlice = currentPage + 9;
-    }
+    // if(currentPage === 1){
+    //     startSlice = currentPage - 1;
+    //     endSlice = currentPage + 9;
+    // }
     $(".student-item").hide();
     $(".student-item.cf").slice(startSlice,endSlice).show();
 }
